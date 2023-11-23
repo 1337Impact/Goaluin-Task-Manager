@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:latest
+    env_file:
+      - .env
+    ports:
+      - ${DATABASE_PORT}:3306
+    volumes:
+      - ./data:/r/lib/mysql
+    restart: on-failure
