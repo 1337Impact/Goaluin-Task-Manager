@@ -43,7 +43,7 @@ export default () => {
   return (
     <form className="mt-4 mx-3 flex flex-col gap-4" onSubmit={handleSubmit}>
       <div className="">
-        <label>Title:</label>
+        <label className="text-gray-700">Title:</label>
         <input
           name="title"
           value={formData.title}
@@ -52,7 +52,7 @@ export default () => {
         />
       </div>
       <div className="">
-        <label>Description:</label>
+        <label className="text-gray-700">Description:</label>
         <textarea
           name="description"
           value={formData.description}
@@ -61,7 +61,7 @@ export default () => {
         ></textarea>
       </div>
       <div className="flex flex-col">
-        <label>Choose task status:</label>
+        <label className="text-gray-700">Choose task status:</label>
         <select
           name="status"
           value={formData.status}
@@ -73,7 +73,7 @@ export default () => {
           <option value="done">done</option>
         </select>
       </div>
-      <div className="text-red-400">{errors}</div>
+      <div className="text-sm text-red-400">hola amigos</div>
       <div className="flex justify-end">
         <button
           className="right-2 w-[100px] h-10 rounded-md bg-red-400 text-white hover:bg-red-500"
