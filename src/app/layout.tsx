@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className="bg-slate-50 mx-auto lg:w-2/3">
+      <body suppressHydrationWarning={true} className="bg-red-100 mx-auto lg:w-2/3">
         <AuthProvider>
           <Provider>
           <Navbar />

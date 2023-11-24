@@ -35,7 +35,6 @@ const appRouter = router({
   createTask: publicProcedure.input(z.object({ title: z.string(), description: z.string(), status: z.string() })).mutation(async (opts) => {
     const { input } = opts;
     const session = await getServerSession(authOptions);
-    console.log("trpc server => ", input);
     try{
       const newTask = await db.task.create({
         data: {
@@ -64,7 +63,6 @@ const appRouter = router({
   deleteTask: publicProcedure.input(z.string()).mutation(async (opts) => {
     const { input } = opts;
     const session = await getServerSession(authOptions);
-    console.log("trpc server => ", input);
     try{
       const deletedTask = await db.task.delete({
         where: {
@@ -79,6 +77,33 @@ const appRouter = router({
         }
       });
       return deletedTask;
+    }
+    catch(e){
+      console.log("error => ", e);
+    }
+    return null;
+  }),
+
+  updateTaskStatus: publicProcedure.input(z.object({ id: z.string(), status: z.string() })).mutation(async (opts) => {
+    const { input } = opts;
+    const session = await getServerSession(authOptions);
+    try{
+      const updatedTask = await db.task.update({
+        where: {
+          id: input.id,
+          userId: session?.user?.id,
+        },
+        data: {
+          status: input.status,
+        },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          status: true,
+        }
+      });
+      return updatedTask;
     }
     catch(e){
       console.log("error => ", e);

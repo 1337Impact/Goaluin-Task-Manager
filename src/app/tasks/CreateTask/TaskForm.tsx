@@ -10,7 +10,7 @@ export default ({ setIsOpen, onCreate }: any) => {
     description: "",
     status: "todo",
   });
-  const createTask = trpc.createTask.useMutation();
+  const createTask = trpc.createTask.useMutation({onSettled: ()=>onCreate()});
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -38,11 +38,10 @@ export default ({ setIsOpen, onCreate }: any) => {
     });
     setErrors("");
     setIsOpen(false);
-    onCreate();
   };
 
   return (
-    <form className="mt-4 mx-3 flex flex-col gap-4" onSubmit={handleSubmit}>
+    <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit}>
       <div className="">
         <label className="text-gray-700">Title:</label>
         <input
