@@ -1,6 +1,6 @@
 interface Task {
-    id: number;
+    id?: number;
     title: string;
     description: string;
-    status: 'pending' | 'in progress' | 'done';
+    status: 'todo' | 'in progress' | 'done';
 };

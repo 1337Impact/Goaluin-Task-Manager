@@ -7,7 +7,7 @@ const data: Task[] = [
     title: "do homework",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel semper arcu. Nulla facilisi.",
-    status: "pending",
+    status: "todo",
   },
   {
     id: 1,
