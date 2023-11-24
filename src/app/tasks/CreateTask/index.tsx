@@ -5,8 +5,8 @@ import { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import TaskForm from "./TaskForm";
 
-export default () => {
-  const [isOpen, setIsOpen] = useState(false);
+export default ({onCreate} : {onCreate : ()=>any}) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div className="top-0 left-0">
       <button
@@ -29,7 +29,7 @@ export default () => {
           >
             <IoMdCloseCircle size="30px" />
           </div>
-          <TaskForm />
+          <TaskForm setIsOpen={setIsOpen} onCreate={onCreate} />
         </div>
       </div>
     </div>

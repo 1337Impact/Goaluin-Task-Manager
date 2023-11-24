@@ -1,21 +1,19 @@
-"use client";
-import { signIn, signOut, useSession } from "next-auth/react";
 import LoginButton from "../LoginButton";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import Link from "next/link";
+import UserIcon from "./UserIcon";
 
-export default () => {
-    const { data: session, status } = useSession();
-    console.log(session?.user);
+export default async () => {
+    const session = await getServerSession(authOptions);
     return (
-        <nav className="h-[70px]  w-full flex items-center justify-between px-4">
+        <nav className="h-[70px] mx-auto w-full flex items-center justify-between px-4">
             <Link href="/">
-                <h1 className="text-2xl font-kranky">GoaluinTM</h1>
+                <h1 className="text-2xl font-kranky cursor-pointer">GoaluinTM</h1>
             </Link>
             {
-                status === "authenticated" ? (
-                    <div className="flex items-center" onClick={()=>signOut()}>
-                        <img src={session.user?.image as string} alt="profile" className="h-[40px] w-[40px] rounded-full" />
-                    </div>
+                session ? (
+                    <UserIcon img={session.user?.image || ""} />
                 ) :
                 (<LoginButton />)
             }

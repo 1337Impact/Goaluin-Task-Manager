@@ -1,39 +1,30 @@
+"use client";
+
+import {trpc} from "@/app/_trpc/client";
 import CreateTask from "./CreateTask";
 import TaskCard from "./TaskCard";
-
-const data: Task[] = [
-  {
-    id: 1,
-    title: "do homework",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel semper arcu. Nulla facilisi.",
-    status: "todo",
-  },
-  {
-    id: 1,
-    title: "check email",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel semper arcu. Nulla facilisi.",
-    status: "in progress",
-  },
-  {
-    id: 1,
-    title: "send kids to school",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel semper arcu. Nulla facilisi.",
-    status: "done",
-  },
-];
+import { get } from "http";
 
 export default () => {
+  const  getTasks = trpc.getTasks.useQuery();
+  const { data } = getTasks;
+
+  const useDelete = trpc.deleteTask.useMutation();
+  const deleteTask = (taskId : string) => {
+    useDelete.mutateAsync(taskId);
+    getTasks.refetch();
+  };
+
+  const refreshTasks = () => getTasks.refetch();
+
   return (
     <main className="relative">
-      <section id="tasks" className="mt-10 px-4 grid grid-cols-1 gap-3">
-        {data.map((item) => (
-          <TaskCard task={item} key={item.id} />
+      <section id="tasks" className="mt-10 px-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {data?.map((item) => (
+          <TaskCard task={item as Task} refresh={refreshTasks} key={item.id} />
         ))}
       </section>
-      <CreateTask />
+      <CreateTask onCreate={refreshTasks} />
     </main>
   );
 };

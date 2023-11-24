@@ -4,7 +4,6 @@ import { signIn, useSession } from "next-auth/react";
 export default () => {
   const { data: session, status } = useSession();
   if (status === "authenticated") {
-    console.log(session);
     return (<p>Signed in</p>);
   }
 

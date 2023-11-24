@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AuthProvider";
+import Provider from "./_trpc/Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,10 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className="bg-slate-50">
+      <body suppressHydrationWarning={true} className="bg-slate-50 mx-auto lg:w-2/3">
         <AuthProvider>
+          <Provider>
           <Navbar />
           {children}
+          </Provider>
         </AuthProvider>
       </body>
     </html>

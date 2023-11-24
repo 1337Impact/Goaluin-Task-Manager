@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
 import GoogleProvider from "next-auth/providers/google";
+import { AuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
@@ -12,7 +13,6 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   },
-
   callbacks: {
 
     async signIn(data: any) {
@@ -20,32 +20,27 @@ export const authOptions = {
         where: { email: data.user.email },
       });
       if (!user) {
-        const username = `@${data.user.name.split(" ")[0][0]}${data.user.name.split(" ")[1]}`.toLowerCase().slice(0, 10);
         try {
-          const newUser = await prisma.user.create({
+          const newUser = await db.user.create({
             data: {
-              username: username,
               name: data.user.name,
               email: data.user.email,
               image: data.user.image,
-              provider: "google",
             },
           });
         } catch (error) {
-          //console.log(error);
           return false;
         }
       }
       return true;
     },
-
+    
     async jwt({ token, user, session}) {
       if (user) {
-        const newUser = await prisma.user.findUnique({where: {email: user.email as string}});
+        const newUser = await db.user.findUnique({where: {email: user.email as string}});
         return {
           ...token,
           id: newUser?.id,
-          username: newUser?.username,
         }
       };
       return token;
@@ -57,7 +52,6 @@ export const authOptions = {
         user: {
           ...session.user,
           id: token.id,
-          username: token.username,
         },
       };
     }
