@@ -16,7 +16,7 @@ const appRouter = router({
     const tasks = await db.task.findMany({
       where: {
         user: {
-          id: session?.user?.id,
+          email: session?.user?.email!,
         },
       },
       select: {
@@ -49,7 +49,7 @@ const appRouter = router({
             ...input,
             user: {
               connect: {
-                id: session?.user?.id,
+                email: session?.user?.email!,
               },
             },
           },
@@ -69,12 +69,10 @@ const appRouter = router({
 
   deleteTask: publicProcedure.input(z.string()).mutation(async (opts) => {
     const { input } = opts;
-    const session = await getServerSession(authOptions);
     try {
       const deletedTask = await db.task.delete({
         where: {
           id: input,
-          userId: session?.user?.id,
         },
         select: {
           id: true,
@@ -99,7 +97,6 @@ const appRouter = router({
         const updatedTask = await db.task.update({
           where: {
             id: input.id,
-            userId: session?.user?.id,
           },
           data: {
             status: input.status,

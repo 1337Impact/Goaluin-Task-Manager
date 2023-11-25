@@ -4,7 +4,7 @@ import { AuthOptions } from "next-auth";
 
 export const authOptions: AuthOptions = {
   pages: {
-    signIn: "/"
+    signIn: "/",
   },
   providers: [
     GoogleProvider({
@@ -17,13 +17,12 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-
     async signIn(data: any) {
-      const user = await db.user.findUnique({
-        where: { email: data.user.email },
-      });
-      if (!user) {
-        try {
+      try {
+        const user = await db.user.findUnique({
+          where: { email: data.user.email },
+        });
+        if (!user) {
           const newUser = await db.user.create({
             data: {
               name: data.user.name,
@@ -31,21 +30,28 @@ export const authOptions: AuthOptions = {
               image: data.user.image,
             },
           });
-        } catch (error) {
-          return false;
         }
+      } catch (error) {
+        console.log(error);
+        return false;
       }
       return true;
     },
-    
-    async jwt({ token, user, session}) {
+
+    async jwt({ token, user, session }) {
       if (user) {
-        const newUser = await db.user.findUnique({where: {email: user.email as string}});
-        return {
-          ...token,
-          id: newUser?.id,
+        try {
+          const newUser = await db.user.findUnique({
+            where: { email: token.email as string },
+          });
+          return {
+            ...token,
+            id: newUser?.id,
+          };
+        } catch (error) {
+          console.log(error);
         }
-      };
+      }
       return token;
     },
 
@@ -57,7 +63,6 @@ export const authOptions: AuthOptions = {
           id: token.id,
         },
       };
-    }
+    },
   },
 };
-

@@ -5,14 +5,14 @@ import CreateTask from "./CreateTask";
 import TaskCard from "./TaskCard";
 import { useEffect, useState } from "react";
 
-export default () => {
+const TasksPage = () => {
   const getTasks = trpc.getTasks.useQuery();
   const [refetch, setRefetch] = useState<boolean>(false);
   const tootleRefetch = () => setRefetch((prev) => !prev);
 
   useEffect(() => {
     getTasks.refetch();
-  }, [refetch]);
+  }, [refetch, getTasks]);
 
   return (
     <main className="relative">
@@ -77,3 +77,5 @@ export default () => {
     </main>
   );
 };
+
+export default TasksPage;

@@ -1,7 +1,7 @@
 "use client";
 import { signIn, useSession } from "next-auth/react";
 
-export default () => {
+export default function LoginButton () {
   const { data: session, status } = useSession();
   if (status === "authenticated") {
     return <p>Signed in</p>;

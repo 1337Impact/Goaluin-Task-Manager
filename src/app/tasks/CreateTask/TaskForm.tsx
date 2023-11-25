@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { trpc } from "@/app/_trpc/client";
 
-export default ({ setIsOpen, onCreate }: any) => {
+const TaskForm = ({ setIsOpen, onCreate }: any) => {
   const [errors, setErrors] = useState("");
   const [formData, setFormData] = useState<Task>({
     title: "",
@@ -89,3 +89,5 @@ export default ({ setIsOpen, onCreate }: any) => {
     </form>
   );
 };
+
+export default TaskForm;

@@ -1,4 +1,4 @@
-export default () => {
+const createTask = () => {
   return (
     <div className="h-screen w-full px-4 flex flex-col items-center justify-center">
       <h1 className="text-3xl font-kranky text-center">Create a new task</h1>
@@ -38,3 +38,6 @@ export default () => {
     </div>
   );
 };
+
+
+export default createTask;

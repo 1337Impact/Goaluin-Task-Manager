@@ -4,7 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import Link from "next/link";
 import UserIcon from "./UserIcon";
 
-export default async () => {
+export default async function Navbar () {
     const session = await getServerSession(authOptions);
     return (
         <nav className="h-[70px] mx-auto w-full flex items-center justify-between px-4">

@@ -1,10 +1,11 @@
 "use client";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { RiCloseCircleFill, RiLogoutBoxLine } from "react-icons/ri";
 
-export default ({ img }: { img: string }) => {
+export default function UserIcon ({ img }: { img: string }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);

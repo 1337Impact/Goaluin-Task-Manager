@@ -2,7 +2,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { trpc } from "../_trpc/client";
 import { useState } from "react";
 
-export default ({ task, refresh }: { task: Task; refresh: any }) => {
+const TaskCard = ({ task, refresh }: { task: Task; refresh: any }) => {
   const [status, setStatus] = useState<string>(task.status);
   const useDelete = trpc.deleteTask.useMutation({onSettled: ()=>refresh()});
   const deleteTask = () => {
@@ -42,3 +42,5 @@ export default ({ task, refresh }: { task: Task; refresh: any }) => {
     </div>
   );
 };
+
+export default TaskCard;
