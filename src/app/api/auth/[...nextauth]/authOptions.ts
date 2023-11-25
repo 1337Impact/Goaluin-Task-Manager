@@ -37,32 +37,5 @@ export const authOptions: AuthOptions = {
       }
       return true;
     },
-
-    async jwt({ token, user, session }) {
-      if (user) {
-        try {
-          const newUser = await db.user.findUnique({
-            where: { email: token.email as string },
-          });
-          return {
-            ...token,
-            id: newUser?.id,
-          };
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      return token;
-    },
-
-    async session({ session, token, user }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-        },
-      };
-    },
   },
 };
