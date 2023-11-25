@@ -17,7 +17,7 @@ const appRouter = router({
       where: {
         user: {
           id: session?.user?.id,
-        }
+        },
       },
       select: {
         id: true,
@@ -27,43 +27,50 @@ const appRouter = router({
       },
       orderBy: {
         createdAt: "desc",
-      }
+      },
     });
     return tasks;
   }),
 
-  createTask: publicProcedure.input(z.object({ title: z.string(), description: z.string(), status: z.string() })).mutation(async (opts) => {
-    const { input } = opts;
-    const session = await getServerSession(authOptions);
-    try{
-      const newTask = await db.task.create({
-        data: {
-          ...input,
-          user: {
-            connect: {
-              id: session?.user?.id,
-            }
+  createTask: publicProcedure
+    .input(
+      z.object({
+        title: z.string().min(10).max(100),
+        description: z.string().max(300),
+        status: z.string(),
+      })
+    )
+    .mutation(async (opts) => {
+      const { input } = opts;
+      const session = await getServerSession(authOptions);
+      try {
+        const newTask = await db.task.create({
+          data: {
+            ...input,
+            user: {
+              connect: {
+                id: session?.user?.id,
+              },
+            },
           },
-        },
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          status: true,
-        }
-      });
-      return newTask;
-    }
-    catch(e){
-      console.log("error => ", e);
-    }
-    return null;
-  }),
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+          },
+        });
+        return newTask;
+      } catch (e) {
+        console.log("error => ", e);
+      }
+      return null;
+    }),
 
   deleteTask: publicProcedure.input(z.string()).mutation(async (opts) => {
     const { input } = opts;
     const session = await getServerSession(authOptions);
-    try{
+    try {
       const deletedTask = await db.task.delete({
         where: {
           id: input,
@@ -74,42 +81,42 @@ const appRouter = router({
           title: true,
           description: true,
           status: true,
-        }
+        },
       });
       return deletedTask;
-    }
-    catch(e){
+    } catch (e) {
       console.log("error => ", e);
     }
     return null;
   }),
 
-  updateTaskStatus: publicProcedure.input(z.object({ id: z.string(), status: z.string() })).mutation(async (opts) => {
-    const { input } = opts;
-    const session = await getServerSession(authOptions);
-    try{
-      const updatedTask = await db.task.update({
-        where: {
-          id: input.id,
-          userId: session?.user?.id,
-        },
-        data: {
-          status: input.status,
-        },
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          status: true,
-        }
-      });
-      return updatedTask;
-    }
-    catch(e){
-      console.log("error => ", e);
-    }
-    return null;
-  }),
+  updateTaskStatus: publicProcedure
+    .input(z.object({ id: z.string(), status: z.string() }))
+    .mutation(async (opts) => {
+      const { input } = opts;
+      const session = await getServerSession(authOptions);
+      try {
+        const updatedTask = await db.task.update({
+          where: {
+            id: input.id,
+            userId: session?.user?.id,
+          },
+          data: {
+            status: input.status,
+          },
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+          },
+        });
+        return updatedTask;
+      } catch (e) {
+        console.log("error => ", e);
+      }
+      return null;
+    }),
 });
 
 export type AppRouter = typeof appRouter;

@@ -18,9 +18,9 @@ export default ({ task, refresh }: { task: Task; refresh: any }) => {
   };
 
   return (
-    <div className="relative bg-red-200 flex flex-col justify-between  border-2 border-gray-500 rounded-md p-3 min-h-[140px]">
-      <h1 className="text-gray-700 text-xl font-semibold">{task.title}</h1>
-      <p className="relative text-sm text-gray-500">{task.description}</p>
+    <div className="relative bg-red-200 flex flex-col justify-between gap-2 border-2 border-gray-500 rounded-md p-3 min-h-[140px]">
+      <h1 className="text-gray-700 text-xl font-semibold pr-4">{task.title}</h1>
+      <p className="relative text-sm text-gray-500 pr-4">{task.description}</p>
       <div className="w-full">
         <select
           name="status"
@@ -28,9 +28,9 @@ export default ({ task, refresh }: { task: Task; refresh: any }) => {
           onChange={handleChange}
           className="float-right w-[125px] border-2 border-gray-500 rounded-md p-1 px-2 text-gray-500 bg-red-200 cursor-pointer focus:outline-none focus:ring-0"
         >
-          <option value="todo">todo</option>
+          <option value="pending">pending</option>
           <option value="in progress">in progress</option>
-          <option value="done">done</option>
+          <option value="completed">completed</option>
         </select>
       </div>
       <button className="absolute top-3 right-3" onClick={() => deleteTask()}>

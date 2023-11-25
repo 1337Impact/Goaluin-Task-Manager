@@ -16,3 +16,14 @@ export default () => {
     </button>
   );
 };
+
+export const SingInWithGoogle = () => {
+  return (
+    <button
+      onClick={() => signIn("google", { callbackUrl: "/tasks" })}
+      className="border-2 border-red-400 rounded-3xl p-3 px-5 text-red-400 font-bold cursor-pointer hover:text-slate-100 hover:bg-red-400 lg:text-xl"
+    >
+      Sing In with Google
+    </button>
+  );
+};

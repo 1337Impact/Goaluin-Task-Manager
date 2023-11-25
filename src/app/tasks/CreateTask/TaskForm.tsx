@@ -8,7 +8,7 @@ export default ({ setIsOpen, onCreate }: any) => {
   const [formData, setFormData] = useState<Task>({
     title: "",
     description: "",
-    status: "todo",
+    status: "pending",
   });
   const createTask = trpc.createTask.useMutation({onSettled: ()=>onCreate()});
 
@@ -26,15 +26,19 @@ export default ({ setIsOpen, onCreate }: any) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { title, description } = formData;
-    if (!title.trim().length || !description.trim().length) {
-      setErrors("Title and description are required");
+    if (title.trim().length < 10 || title.trim().length > 100) {
+      setErrors("Title must be between 10 and 100 characters");
+      return;
+    }
+    if (description.trim().length > 300) {
+      setErrors("Description must be less than 300 characters");
       return;
     }
     createTask.mutate(formData);
     setFormData({
       title: "",
       description: "",
-      status: "todo",
+      status: "pending",
     });
     setErrors("");
     setIsOpen(false);
@@ -52,7 +56,7 @@ export default ({ setIsOpen, onCreate }: any) => {
         />
       </div>
       <div className="">
-        <label className="text-gray-700">Description:</label>
+        <label className="text-gray-700">Details:</label>
         <textarea
           name="description"
           value={formData.description}
@@ -68,9 +72,9 @@ export default ({ setIsOpen, onCreate }: any) => {
           onChange={handleChange}
           className="w-[150px] border-2 border-gray-300 rounded-md p-1 text-gray-400 bg-white focus:outline-none focus:ring-0"
         >
-          <option value="todo">todo</option>
+          <option value="pending">pending</option>
           <option value="in progress">in progress</option>
-          <option value="done">done</option>
+          <option value="completed">completed</option>
         </select>
       </div>
       <div className="text-sm text-red-400">{errors}</div>

@@ -24,9 +24,9 @@ export default () => {
             id="status"
             className="border-2 border-theme-red rounded-md px-3 py-[2px] focus:outline-none focus:ring-2 focus:ring-theme-red"
           >
-            <option value="todo">To Do</option>
+            <option value="pending">To Do</option>
             <option value="doing">Doing</option>
-            <option value="done">Done</option>
+            <option value="completed">completed</option>
           </select>
         </div>
         <div className="flex justify-end mt-3">
