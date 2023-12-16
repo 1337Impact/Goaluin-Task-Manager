@@ -7,7 +7,7 @@ export default function Home() {
         Manage Your Tasks Like A Pro
       </h1>
       <p className="w-[70%] max-w-2xl text-center text-xl text-gray-600 font-medium xl:text-2xl">
-        GoaluinTM is a simple task management app, buit using the latest
+      TaskSpace is a simple task management app, buit using the latest
         technologies
       </p>
       <SingInWithGoogle />

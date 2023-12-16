@@ -9,7 +9,7 @@ export default async function Navbar () {
     return (
         <nav className="h-[70px] mx-auto w-full flex items-center justify-between px-4">
             <Link href="/">
-                <h1 className="text-2xl font-kranky cursor-pointer hover:text-gray-700">GoaluinTM</h1>
+                <h1 className="text-2xl font-kranky cursor-pointer hover:text-gray-700">TaskSpace</h1>
             </Link>
             {
                 session ? (

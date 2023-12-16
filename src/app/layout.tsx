@@ -5,7 +5,7 @@ import AuthProvider from "@/context/AuthProvider";
 import Provider from "./_trpc/Provider";
 
 export const metadata: Metadata = {
-  title: "Goaluin Task Manager",
+  title: "TaskSpace",
   description: "Simple task manager app built with Next.js, Trpc and TailwindCSS",
 };
 

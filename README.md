@@ -1,10 +1,10 @@
-# Goaluin Task Manager
+# TaskSpace Task Manager
 
 This is a TypeScript project using Nextjs, Tailwind css, and Trpc.
 
 ## Demo
 
-You can see a live demo of the project at [https://goaluin-task-manager.vercel.app/](https://goaluin-task-manager.vercel.app/)
+You can see a live demo of the project at [https://taskspace.vercel.app/](https://taskspace.vercel.app/)
 
 ## Installation
 
